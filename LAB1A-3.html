@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JAVASCRIPT - Mark Calculator</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        .custom-theme {
+            background-color: #0056b3 !important;
+        }
+
+        .navbar-brand img {
+            width: 45px;
+            height: 45px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid white;
+        }
+
+        footer {
+            background-color: #0056b3 !important;
+            color: white;
+        }
+
+        body {
+            padding-bottom: 100px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .calc-card {
+            max-width: 500px;
+            margin: auto;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <header class="custom-theme shadow-sm">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container-fluid px-5">
+                <a class="navbar-brand d-flex align-items-center" href="index.html">
+                    <img src="logo.jpg" alt="Logo">
+                    <span style="font-size: 1.5rem; color: white; margin-left: 10px;">JAVASCRIPT</span>
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="nav" style="font-size: 1.1rem;">
+                    <ul class="navbar-nav ms-auto d-flex gap-3">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown">
+                                LAB 1A
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="LAB1A-1.html">LAB 1A-1</a></li>
+                                <li><a class="dropdown-item" href="LAB1A-2.html">LAB 1A-2</a></li>
+                                <li><a class="dropdown-item" href="LAB1A-3.html">LAB 1A-3</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="LAB1B.html">LAB 1B</a></li>
+                        <li class="nav-item"><a class="nav-link" href="LAB1C.html">LAB 1C</a> </li>
+                        <li class="nav-item"><a class="nav-link" href="LAB2A.html">LAB 2A</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown">
+                                REPORT
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="Report_LAB1A-1.pdf" target="_blank">Report
+                                        LAB1A-1</a></li>
+                                <li><a class="dropdown-item" href="Report_LAB1A-2.pdf" target="_blank">Report
+                                        LAB1A-2</a></li>
+                                <li><a class="dropdown-item" href="Report_LAB2A.pdf" target="_blank">Report
+                                        LAB2A</a></li>
+                                <li><a class="dropdown-item" href="Report_LAB3A.pdf" target="_blank">Report
+                                        LAB3A</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mt-5">
+
+        <section class="text-center mb-4">
+            <h3>JAVASCRIPT LAB ACTIVITY</h3>
+            <h5>Mark Calculator (PW1 + PW2)</h5>
+        </section>
+
+        <div class="calc-card bg-light">
+
+            <div class="mb-3">
+                <label class="form-label">Student Name</label>
+                <input type="text" id="studentName" class="form-control">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Practical Work 1 (0-100)</label>
+                <input type="number" id="pw1" class="form-control">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Practical Work 2 (0-100)</label>
+                <input type="number" id="pw2" class="form-control">
+            </div>
+
+            <button id="btnCalc" class="btn btn-primary w-100">
+                Calculate
+            </button>
+
+            <div id="outputBox" class="alert alert-secondary mt-3">
+                Output will appear here
+            </div>
+
+        </div>
+
+    </main>
+
+    <footer class="fixed-bottom text-center py-3">
+        <div class="container">
+            <p class="mb-0">© 2026 WEB DESIGN TECHNOLOGY | PREPARED BY:SYUHADA BINTI MOHD SYAZWAN YAP (10DIT24F1247)</p>
+        </div>
+    </footer>
+
+    <script>
+
+        const nameInput = document.getElementById("studentName");
+        const pw1Input = document.getElementById("pw1");
+        const pw2Input = document.getElementById("pw2");
+        const btn = document.getElementById("btnCalc");
+        const outputBox = document.getElementById("outputBox");
+
+        btn.addEventListener("click", calculateMarks);
+
+        function calculateMarks() {
+
+            let name = nameInput.value.trim();
+            let pw1 = Number(pw1Input.value);
+            let pw2 = Number(pw2Input.value);
+
+            if (!name || isNaN(pw1) || isNaN(pw2) || pw1 < 0 || pw1 > 100 || pw2 < 0 || pw2 > 100) {
+
+                outputBox.className = "alert alert-danger mt-3";
+                outputBox.innerHTML = "❌ Please enter valid data (0-100)";
+                return;
+
+            }
+
+            let total = pw1 + pw2;
+            let average = total / 2;
+            let percentage = (total / 200) * 100;
+
+            let grade;
+
+            if (average >= 80) {
+                grade = "Excellent";
+            }
+            else if (average >= 60) {
+                grade = "Good";
+            }
+            else if (average >= 40) {
+                grade = "Satisfactory";
+            }
+            else {
+                grade = "Fail";
+            }
+
+            outputBox.className = "alert alert-success mt-3";
+
+            outputBox.innerHTML = `
+
+<h5>✅ Result Summary</h5>
+
+<p><b>Name:</b> ${name}</p>
+
+<p><b>PW1:</b> ${pw1}</p>
+<p><b>PW2:</b> ${pw2}</p>
+
+<hr>
+
+<p><b>Total:</b> ${total}</p>
+<p><b>Average:</b> ${average.toFixed(2)}</p>
+<p><b>Percentage:</b> ${percentage.toFixed(2)}%</p>
+<p><b>Grade:</b> ${grade}</p>
+
+`;
+
+        }
+
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
